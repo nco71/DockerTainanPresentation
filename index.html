@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/theme/beige.css" id="theme">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -41,7 +41,7 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>Introduction to Docker & Drupal 8</h1>
+					<h1>State of Drupal 8</h1>
 					<h3></h3>
 					<p>
 						<small>Created by <a href="https://www.facebook.com/chaux.cedric">Chaux Cedric</a> using <a href="https://revealjs.co://revealjs.com">reveal.js</a></small>
@@ -49,153 +49,114 @@
 				</section>
 
 				<section>
+					<section>
+				        	<h2>Content</h2>
+						<ul>
+							<li>Intro</li>
+							<li>Symfony composer and OO</li>
+							<li>Drupal 8 modules,core,contrib old and new</li>
+							<li>Theming</li>
+							<li>Configuration Management</li>
+						</ul>
+					</section>
 				       <section>
-				        	<h2>What is docker</h2>
+				        	<h2>Intro </h2>
 			         	 	<p>
-				         	    Docker use linux function to access hardware, manage  and create isolated and linked  environment where you can run applications
-						    <a href="https://docs.docker.com/engine/docker-overview/#the-underlying-technology" >Official docker doc</a>
+						 8.0.0 released November 19, 2019 , now soon 8.5 finally passing the <a href="https://www.drupal.org/association/supporters/blog/has-drupal-8-usage-hit-a-tipping-point?utm_source=The+Weekly+Drop&utm_medium=email&utm_campaign=The_Weekly_Drop_Issue_323_01_25_2018">the tipping point</a>
 			         		</p>
-						<br>
 					</section>
-					<section>
-						<h2>WHy use Docker</h2>
-						<p>Share environment with exact same configuration between teams </p>
-						<p class="fragment" >Reproducable bugs</p>
-						<p class="fragment" >automatic testing</p>
-						<p class="fragment" >network testing , load balancing</p>
-						<br>
-					</section>
-					<section>
-						<h2>Docker versus virtual machines</h2>
-						<p> Faster lighter, manageable and optimized </p>
-						<p class="fragment" ><a href="https://www.docker.com/what-container#/package_software">Docker infrastructure versus virtual machine</a></p>
-						<br>
-					</section>
+				
 				</section>
 
 				<section>
+					<section>
+				        	<h2>OO</h2>
+							<p>Abstract Class></p>
+							<p>class(Property(type),function(value:type))></p>
+							<p>instance(PropertyX,FunctionY())</p>
+							<p>Constructor : Inherit from a class</p>
+						         <p>And Many other concepts </p>
+						</section>
 				       <section>
-				        	<h2>Docker client</h2>
-			         	 	<p>
-						   Docker use command line to manage its container
-			         		</p>
-						<p class="fragment" >build</p>
-						<p class="fragment" >run, exec</p>
-						<p class="fragment" >ps</p>
-						<p class="fragment" >stop</p>
-						<p class="fragment" >rm, rni</p>
-						<p class="fragment" ><a href="https://docs.docker.com/engine/reference/commandline/cli/#notary">and much more</a></p>
-						<br>
+				        	<h2>Symfony ( also OO ) </h2>
+						<a href="https://symfony.com/"><img data-src="symfony.svg"></a>
+						<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+						&ldquo; Symfony is a set of PHP Components, a Web Application framework, a Philosophy, and a Community — all working together in harmony. »
+			         		</blockquote>
 					</section>
 					<section>
-						<h2>Docker registry</h2>
-						<p><a href="https://hub.docker.com/">Free and available online registry called docker hub </a></p>
-						<p class="fragment" >can pull and push</p>
-						<p class="fragment" >thousands of environments , applications</p>
-						<p class="fragment" >You can create you own registry</p>
-						<br>
+						<h2>Composer</h2>
+						<a href="https://getcomposer.org/"><img data-src="composer.png"></a>
+						<p> Dependency manager : <a href="https://packagist.org/packages/drupal-composer/drupal-project">drupal-project</a></p>
+						<p>Manage Drupal Dependencies drush, plugins & themes</p>
 					</section>
 				</section>
 
 				<section>
 				       <section>
-				        	<h2>Building your application</h2>
+				        	<h2>D8 Core modules</h2>
 			         	 	<p>
-						   Docker use a scripting language to build containuer
+						   Some famous modules made it to core<br />
+							More stable<br />
+							No need to install</>
 			         		</p>
-						<p class="fragment" >FROM</p>
-						<p class="fragment" >RUN</p>
-						<p class="fragment" >COPY ADD</p>
-						<p class="fragment" >ENV</p>
-						<p class="fragment" >WORDIR</p>
-						<p class="fragment" ><a href"https://docs.docker.com/engine/reference/builder/#environment-replacement">and more</a></p>
-						<p class="fragment" > each building layer is saved</p>
+						<p class="fragment" >views,<a href="https://localize.drupal.org://localize.drupal.org/">i18</a> </p>
+						<p class="fragment" >admin_menu, ckeditor m bigpipe</p>
+						<p class="fragment" >entities, entity reference</p>
+						<p class="fragment" >media, etc .... </p>
+						<p class="fragment" >There is a nice module <a href"https://contribkanban.com/board/contrib_tracke://contribkanban.com/board/contrib_tracker">tracker</a></p>
 						<br>
 					</section>
-
-					<section data-markdown>
-						<script type="text/template">
-							## Dockerfiles
-							Put the instructions in Dockerfile [doc](https://docs.docker.com/engine/reference/builder/).
-
-							``` 
-							FROM node:alpine
-
-							ENV PATH=/app/node_modules/.bin:$PATH
-
-							# We add package.json first so that the  docker image build
-							# can use the cache as long as contents of package.json
-							# hasn't changed.
-
-							WORKDIR /app
-
-							RUN npm install --global gulp && \
-							    npm install --global npm-check-updates
-
-
-							#ADD package.json /app/
-
-							RUN npm-check-updates -u && \
-							    npm install && \
-							    npm update
-
-							```
-							and build it
-						</script>
+					<section>
+				        	<h2>D8 Contrib Module</h2>
+			         	 	<p>
+						   Some famous modules made it too<br />
+							but not yet to the core<br />
+							must install</>
+			         		</p>
+						<p class="fragment" >webform</p>
+						<p class="fragment" >commerce</p>
+						<p class="fragment" >paragrah</p>
+						<br>
 					</section>
-
 				</section>
-
-				<section data-markdown>
-					<script type="text/template">
-						## Docker-compoose
-						Example of docker-compose.yml [Doc](https://docs.docker.com/compose://docs.docker.com/compose//).
-
-						``` 
-			
-						version: '3.1'
-
-						services:
-
-						    db:
-							image: mysql
-							restart: always
-							environment:
-							MYSQL_ROOT_PASSWORD: example
-
-						    adminer:
-							image: adminer
-							restart: always
-							ports:
-							- 8080:8080
-
-						```
-						and build it then run it ( docker-compose up -d )
-					</script>
-				</section>
-
-
-
 				<section>
-					<h2>Other tools</h2>
-					<p><a href="https://github.com/portainer/portainer">Portainer</a>web interface for docker</p>
-					<p class="fragment"><a href="https://github.com/containous/traefik">Traefik</a>reverse proxy</p>
-					<p class="fragment"><a href="https://jenkins.io/">Jenkins</a>testing application</p>
+				       <section>
+				        	<h2>Theming</h2>
+						</p>Twig replace php template, why ? <p/>
+						<p>No more messy template.php , hello theme.yml </p>
+						<p>Super organized file & directory structure<br /> ( SMACCS & BEM )</p>
+						<p>CSS and javascript aggregation by default </p>
+						<p>D8 does not support IE 6 7 8 !! </p>
+					</section>
+					<section>
+				        	<h2>Decoupled Theming</h2>
+                                                <p>why ? buzz ? </p>
+						<p>Use a Javascript Framework for theming</p>
+						<p>Based on Drupal API first , REST API</p>
+						<p>REACT Might becomes official Javascript framework for admin</p>
+						<p>waterwheels.js to help access Drupal API</p>
+						<p>They created a decoupled distribution : <a href="https://www.drupal.org/project/contentacms">Contenta</a></p>
+					</section>
 				</section>
 
 
 				<section>
-					<h2>Drupal 8</h2>
-					<p><a href="Porhttps://github.com/wodby/docker4drupa://github.com/wodby/docker4drupaltainer">Easy docker set up</a></p>
-					<p class="fragment">Installing</p>
-					<p class="fragment">Running</p>
-					<p class="fragment">SSH</p>
-					<p class="fragment">drush & composer</p>
-					<p class="fragment">persistant volumes</p>
+					<h2>Configuration Management</h2>
+					<p>Settings can be exported to file and then imported</p>
+					<p> can use UI or Drush</p>
+                                        <p>Works with Entity Structure > even menu</p>
+					<p >Also some compatible modules config</p>
 				</section>
 
 
-
+				<section>
+					<h2>Conclusion</h2>
+					<p>lots of improvement</p>
+					<p>great UI , even for mobile</p>
+					<p>Already very comprehensive doc online</p>
+                                        <p>D8 even better for Continuous Integration workflows</p>
+				</section>
 
 
 				<section style="text-align: left;">
